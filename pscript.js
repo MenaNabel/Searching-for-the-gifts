@@ -1,12 +1,15 @@
 const src="gift.png";
 const empPrizeSrc="empprize.jpg";
 const prize="th.jpg";
-var images=[];
 var noOfClicks = 0;
 function validateForm() {
   var x = document.forms["inputForm"]["firstname"].value;
   var y = document.forms["inputForm"]["NOB"].value;
-  if (!(x == "" || y == "")) {
+  var yy = Math.ceil(y);
+  var yyy = y-yy;
+  const isint=(yyy == 0)? true : false;
+  console.log(isint);
+  if (!(x == "" || y == "" || y <= 0 || y >= 200 || (!(isint)))) {
     return true;
   }
 }
@@ -16,7 +19,6 @@ function create(containerElement,src,onClick){
     const img = document.createElement("img");
     img.src=src;
     img.setAttribute("alt", "Forest");
-    img.setAttribute("style", "width:150px; height:200px");
     img.classList.add("prize");
     img.addEventListener('click', onClick);
     div.append(img);
@@ -75,7 +77,7 @@ const submit=document.getElementById("sb1");
 submit.addEventListener('click',onClickSubmitKey);
 function onClickSubmitKey() {
    if(!validateForm()){
-		alert("You must enter all the values required....!");
+		alert("You must enter all the values required....!"+"\r\n"+"Hint for (Number of boxes):You must Enter only postive integers more than ZERO and less than 200 ");
 	}
    else{
 		const form=document.getElementById("inputForm");
@@ -93,11 +95,9 @@ function onClickSubmitKey() {
 		for (var i =0; i < numOfBoxes; i++) {
 		   if(i == pIndex){
 			   image = new prizeImage(container,src);
-		   	   images.push(image);
 		   }	
 		   else{
 		   	   image = new Image(container,src);
-			   images.push(image);
 		   }   
 		}
 		
